@@ -14,6 +14,14 @@
 
 ## Prequisites
 
+### Azure Keys
+
+Student Pass Code	Validity Date
+QF6QP9DYKZ0KKHJ7NR	16-12-2020
+QKD5SYT91S07C3BJMQ	16-12-2020
+QTLKG7194K9HK2C4MN	16-12-2020
+
+
 ### Install Chocolatey
 
 > In Powershell
@@ -45,3 +53,5 @@ Connect-AzAccount
 
 
 [Back to top](#table-of-content)
+
+
