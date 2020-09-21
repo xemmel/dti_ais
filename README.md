@@ -49,6 +49,11 @@ choco install az.powershell -y
 
 ```
 
+### Install Azure Functions CLI
+```powershell
+choco install azure-functions-core-tools-3
+```
+
 ### Logon to Azure in Powershell
 
 ```powershell
