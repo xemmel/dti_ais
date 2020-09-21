@@ -24,6 +24,13 @@
 
 ## Prequisites
 
+### Wifi
+
+```
+TEKNOLOGISK-GUEST
+32435733
+```
+
 ### Azure Keys
 ```
 Student Pass Code	Validity Date
@@ -50,9 +57,17 @@ choco install az.powershell -y
 ```
 
 ### Install Azure Functions CLI
+
 ```powershell
-choco install azure-functions-core-tools-3
+choco install azure-functions-core-tools-3 -y
 ```
+
+### Install Postman
+
+```powershell
+choco install postman -y
+```
+
 
 ### Logon to Azure in Powershell
 
