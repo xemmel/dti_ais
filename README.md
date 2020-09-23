@@ -185,3 +185,39 @@ New-AzResourceGroupDeployment -ResourceGroupName "thoftskalforstaa" -TemplateFil
 ```
 
 [Back to top](#table-of-content)
+
+
+## Api Management
+
+### CORS
+
+```xml
+
+<inbound>
+        <cors>
+            <allowed-origins>
+                <origin>*</origin>
+            </allowed-origins>
+            <allowed-methods>
+                <method>GET</method>
+                <method>POST</method>
+                <method>PUT</method>
+                <method>DELETE</method>
+                <method>HEAD</method>
+                <method>OPTIONS</method>
+                <method>PATCH</method>
+                <method>TRACE</method>
+            </allowed-methods>
+            <allowed-headers>
+                <header>*</header>
+            </allowed-headers>
+            <expose-headers>
+                <header>*</header>
+            </expose-headers>
+        </cors>
+    </inbound>
+
+
+```
+
+[Back to top](#table-of-content)
