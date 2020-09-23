@@ -191,6 +191,7 @@ New-AzResourceGroupDeployment -ResourceGroupName "thoftskalforstaa" -TemplateFil
 
 ### CORS
 
+> Place under policy (All API's)
 ```xml
 
 <inbound>
