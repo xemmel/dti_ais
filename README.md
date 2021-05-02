@@ -14,6 +14,7 @@
 8. [Deployment](#logic-apps)
 9. [Security](#logic-apps)
 10. [Data Factory](#data-factory)
+11. [Pricing](#pricing)
 
 
 
@@ -256,3 +257,13 @@ New-AzResourceGroupDeployment -ResourceGroupName [resourceGroupName] -TemplateFi
 ```
 
 [Back to top](#table-of-content)
+
+## Pricing
+
+```
+https://azure.microsoft.com/en-us/pricing/calculator/
+
+```
+
+[Back to top](#table-of-content)
+
