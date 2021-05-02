@@ -1,6 +1,6 @@
 # AIS COURSE
 ## Morten la Cour
-### mlc@vertica.dk
+### lacour@gmail.com
 
 
 ## Table of Content
@@ -13,6 +13,7 @@
 7. [API Management](#logic-apps)
 8. [Deployment](#logic-apps)
 9. [Security](#logic-apps)
+10. [Data Factory](#data-factory)
 
 
 
@@ -34,14 +35,13 @@ TEKNOLOGISK-GUEST
 ### Azure Keys
 ```
 Student Pass Code	Validity Date
-QF6QP9DYKZ0KKHJ7NR	16-12-2020
-QKD5SYT91S07C3BJMQ	16-12-2020
-QTLKG7194K9HK2C4MN	16-12-2020
+
 ``` 
 
 ### Install Chocolatey
 
-> In Powershell
+> In Powershell (Administrator)
+
 ```powershell
 
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
@@ -49,10 +49,25 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 ```
 > Powershell might need to be reopened
 
+### Install Powershell Core
+```powershell
+
+choco install powershell-core -y
+
+```
+
 ### Install Powershell AZ
 
 ```powershell
 choco install az.powershell -y
+
+```
+
+### Install Azure Cli
+
+```powershell
+
+choco install azure-cli -y
 
 ```
 
@@ -62,17 +77,34 @@ choco install az.powershell -y
 choco install azure-functions-core-tools-3 -y
 ```
 
+### Install Visual Studio Code
+
+```powershell
+choco install vscode -y
+```
+
+
 ### Install Postman
 
 ```powershell
 choco install postman -y
 ```
 
+### Install Nodepad++
+
+```powershell
+
+choco install notepadplusplus -y 
+
+```
+
 ### Service Bus Explorer
 
 ```
 https://github.com/paolosalvatori/ServiceBusExplorer/releases
+
 ```
+
 
 ### Logon to Azure in Powershell
 
@@ -86,6 +118,7 @@ Select-AzSubscription -SubscriptionId .......
 
 ```powershell
 Select-AzContext [Tab for all available logins]
+
 ```
 
 
@@ -177,10 +210,11 @@ Select-AzContext [Tab for all available logins]
 }
 
 ```
+### Deploy Arm Template from Powershell
 
 ```powershell
 
-New-AzResourceGroupDeployment -ResourceGroupName "thoftskalforstaa" -TemplateFile C:\teaching\dti_ais\armtemplate.json -Verbose      
+New-AzResourceGroupDeployment -ResourceGroupName [resourceGroupName] -TemplateFile C:\teaching\dti_ais\armtemplate.json -Verbose      
 
 ```
 
