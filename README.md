@@ -57,6 +57,29 @@ choco install powershell-core -y
 
 ```
 
+
+### Install everything
+
+```powershell
+
+choco install az.powershell -y
+choco install azure-cli -y
+choco install azure-functions-core-tools-3 -y
+choco install vscode -y
+choco install postman -y
+choco install notepadplusplus -y
+
+```
+
+### Update all
+
+```powershell
+## Check, run in "old" powershell if powershell-core needs update
+choco upgrade all --noop
+
+choco upgrade all -y
+```
+
 ### Install Powershell AZ
 
 ```powershell
