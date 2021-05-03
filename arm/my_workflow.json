@@ -1,0 +1,46 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workflowName" : { "type" : "string" },
+        "responseText" : { "type" : "string" },
+        "location" : { "type" : "string", "defaultValue": "[resourceGroup().location]" }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name" : "[parameters('workflowName')]",
+            "location": "[parameters('location')]",
+            "properties" : {
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "triggers" : {
+                        "manual": {
+                            "inputs": {
+                                "method": "Get",
+                                "schema": {}
+                            },
+                            "kind": "Http",
+                            "type": "Request"
+                        }
+                    },
+                    "actions" : {
+                        "ComposeIt" : {
+                            "inputs" : "[parameters('responseText')]",
+                            "type" : "Compose",
+                            "runAfter" : {}
+                        },
+                        "Reponse" : {
+                            "inputs" : { "statusCode" : 200, "body" : "@outputs('ComposeIt')" },
+                            "type" : "Response",
+                            "runAfter" : { "ComposeIt" : [ "Succeeded" ] }
+                        }
+                    }
+                }
+            }
+
+        }
+]
+  }

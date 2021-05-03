@@ -198,77 +198,52 @@ this is @{logic app language} bla bla -> Code only inside {}
 
 
 ```json
-
 {
-  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.0",
-  "apiProfile": "",
-  "parameters": { 
-		"logicAppName" : {
-			"type" : "string"
-		},
-		"message": {
-			"type" : "string",
-			"defaultValue" : "The deployer had nothing to say"
-		},
-		"location" : {
-			"type": "string",
-			"defaultValue" : "[resourceGroup().location]"
-		}
-  },
-  "variables": { 
-		"apiVersion" : "2019-05-01"
-  },
-  "functions": [  ],
-  "resources": [ 
-	{
-			"type" : "Microsoft.Logic/workflows",
-			"name" : "[parameters('logicAppName')]",
-			"apiVersion" : "[variables('apiVersion')]",
-			"location" : "[parameters('location')]",
-			"properties" : {
-				"definition" : {
-					"$schema" : "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
-					"contentVersion" : "1.0.0.0",
-					"actions" : {
-						"SetResponseCompose" : {
-							"inputs" : "[parameters('message')]",
-							"type" : "Compose",
-							"runAfter" : {}
-						},
-						"Response" : {
-							"inputs" : {
-								"statusCode" : 200,
-								"body" : "@outputs('SetResponseCompose')"
-							},
-							"type": "Response",
-							"kind" : "Http",
-							"runAfter" : {
-								"SetResponseCompose" : [ "Succeeded" ]
-							}
-						}
-					},
-					"triggers" : {
-						            "manual": {
-					"inputs": {
-                    "method": "GET",
-                    "schema": {}
-					},
-						"kind": "Http",
-						"type": "Request"
-					}
-					}
-				}
-			}
-	}
-  ],
-  "outputs": {
-   "logicAppUrl": {
-      "type": "string",
-      "value": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows/', parameters('logicAppName')), '/triggers/manual'), '2019-05-01').value]"
-   }
-}
-}
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workflowName" : { "type" : "string" },
+        "responseText" : { "type" : "string" },
+        "location" : { "type" : "string", "defaultValue": "[resourceGroup().location]" }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name" : "[parameters('workflowName')]",
+            "location": "[parameters('location')]",
+            "properties" : {
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "triggers" : {
+                        "manual": {
+                            "inputs": {
+                                "method": "Get",
+                                "schema": {}
+                            },
+                            "kind": "Http",
+                            "type": "Request"
+                        }
+                    },
+                    "actions" : {
+                        "ComposeIt" : {
+                            "inputs" : "[parameters('responseText')]",
+                            "type" : "Compose",
+                            "runAfter" : {}
+                        },
+                        "Reponse" : {
+                            "inputs" : { "statusCode" : 200, "body" : "@outputs('ComposeIt')" },
+                            "type" : "Response",
+                            "runAfter" : { "ComposeIt" : [ "Succeeded" ] }
+                        }
+                    }
+                }
+            }
+
+        }
+]
+  }
 
 ```
 ### Deploy Arm Template from Powershell
@@ -277,6 +252,19 @@ this is @{logic app language} bla bla -> Code only inside {}
 
 New-AzResourceGroupDeployment -ResourceGroupName [resourceGroupName] -TemplateFile C:\teaching\dti_ais\armtemplate.json -Verbose      
 
+```
+
+### Arm template parameter file
+
+```json
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "nameOfParameter" : { "value" : "Morten1" }
+       
+     }
+  }
 ```
 
 [Back to top](#table-of-content)
