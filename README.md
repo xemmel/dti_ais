@@ -151,10 +151,47 @@ Select-AzContext [Tab for all available logins]
 
 ## Logic Apps
 
+1 Trigger x Actions
+
+### An action
+```json
+{
+	"inputs" : {}, //""
+	"type" : "",
+	"runAfter : { "ActionName" : [ "Succeeded" ] } //First action : {}
+}
+ ```
+
+### Logic App Action Language
+
+this is @{logic app language} bla bla -> Code only inside {} 
+
+@outputs('action')
+> Get the raw output of Action
+@outputs('name of action') -> Action must be a previous step
+
+> Get the body of the json
+@body('actionName') === @outputs('actionName')['body']
+
+> The the content (headers/payload) of the trigger
+@triggerOutputs()
+@triggerBody() === @triggerOutputs()['body']
 
 
 [Back to top](#table-of-content)
 
+### Response
+
+```json
+"Response": {
+                "inputs": {
+                    "body": "nnnnn",
+                    "statusCode": 200
+                },
+                "runAfter": {},
+                "type": "Response"
+            }
+```
 
 ## Deployment
 
