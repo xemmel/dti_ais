@@ -9,7 +9,7 @@
 3. [Azure Functions](#logic-apps)
 4. [Service Bus](#logic-apps)
 5. [Relay](#logic-apps)
-6. [Event Grid](#logic-apps)
+6. [Event Grid](#event-grid)
 7. [API Management](#logic-apps)
 8. [Deployment](#logic-apps)
 9. [Security](#logic-apps)
