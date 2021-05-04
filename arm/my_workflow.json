@@ -30,12 +30,18 @@
                         "ComposeIt" : {
                             "inputs" : "[parameters('responseText')]",
                             "type" : "Compose",
-                            "runAfter" : {}
+                            "runAfter" : {},
+                            "trackedProperties" : {
+                                "customResponseText" : "@outputs('ComposeIt')"
+                            }
                         },
                         "Reponse" : {
                             "inputs" : { "statusCode" : 200, "body" : "@outputs('ComposeIt')" },
                             "type" : "Response",
-                            "runAfter" : { "ComposeIt" : [ "Succeeded" ] }
+                            "runAfter" : { "ComposeIt" : [ "Succeeded" ] },
+                            "trackedProperties" : {
+                                "customResponse" : "Finished!!"
+                            }
                         }
                     }
                 }

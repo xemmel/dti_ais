@@ -33,7 +33,10 @@
 						"SetResponseCompose" : {
 							"inputs" : "[parameters('message')]",
 							"type" : "Compose",
-							"runAfter" : {}
+							"runAfter" : {},
+							"trackedProperties" : {
+								"customMessage" : "[@outputs('SetResponseCompose')]"
+							}
 						},
 						"Response" : {
 							"inputs" : {

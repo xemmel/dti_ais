@@ -270,6 +270,38 @@ New-AzResourceGroupDeployment -ResourceGroupName [resourceGroupName] -TemplateFi
 [Back to top](#table-of-content)
 
 
+## Event Grid
+
+- Create Event Grid Topic
+- Get Url
+- Get Key
+  - Set header "aeg-sas-key: key"
+
+- call endpoint with the following json
+
+```json
+
+[
+    { 
+        "id" : "1234",
+        "subject" : "fileEvents",
+        "eventType" : "fileCreated",
+        "eventTime" : "2010-01-01",
+        "data" : {
+            "receiverId" : "DS",
+            "customerId" : "3344",
+            "correlationId" : "4343-434343-43-4343"
+        }
+     }
+]
+
+```
+
+- Create LA HTTP Trigger
+- Create subscription with LA endpoint url as webhook
+- (Experiment with filters on the subscriptions)
+
+[Back to top](#table-of-content)
 ## Api Management
 
 ### CORS
