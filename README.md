@@ -269,6 +269,21 @@ New-AzResourceGroupDeployment -ResourceGroupName [resourceGroupName] -TemplateFi
 
 [Back to top](#table-of-content)
 
+## Api Management
+
+http://lacourpostnumber.westeurope.azurecontainer.io/Service.asmx
+
+```xml
+
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <GetCity xmlns="http://tempuri.org/">
+      <postnumber>9000</postnumber>
+    </GetCity>
+  </soap:Body>
+</soap:Envelope>
+
+```
 
 ## Event Grid
 

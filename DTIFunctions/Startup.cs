@@ -13,7 +13,7 @@ namespace DTIFunctions
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            var services = builder.Services;
+            IServiceCollection services = builder.Services;
 
             services.AddScoped<IGreeter, SimpleGreeter>();
 
