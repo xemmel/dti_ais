@@ -387,7 +387,16 @@ https://azure.microsoft.com/en-us/pricing/calculator/
 
 ```
 
+## Split On
 
+```json
+
+                "kind": "Http",
+                "splitOn" : "@triggerBody()",
+                "type": "Request"
+
+                
+```
 
 ## Function Transform XML
 
