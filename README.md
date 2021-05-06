@@ -375,3 +375,14 @@ https://azure.microsoft.com/en-us/pricing/calculator/
 
 ```
 
+
+### Extract Blob Path and name from subject
+
+```json
+ "Compose": {
+                "inputs": "@{split(triggerBody()['subject'],'/')[4]}/@{split(triggerBody()['subject'],'/')[6]}",
+                "runAfter": {},
+                "type": "Compose"
+            }
+
+```
