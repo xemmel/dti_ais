@@ -386,3 +386,90 @@ https://azure.microsoft.com/en-us/pricing/calculator/
             }
 
 ```
+
+
+
+## Function Transform XML
+
+
+```csharp
+
+#r "Newtonsoft.Json"
+
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
+using System.Xml;
+using System.Xml.Xsl;
+
+public static async Task<IActionResult> Run(HttpRequest req, ILogger log, string myInputBlob)
+{
+ 
+
+    string xml = await new StreamReader(req.Body).ReadToEndAsync();
+    string xslt = myInputBlob;
+
+    string responseMessage = TransformXML(xml: xml, xsl: xslt);
+
+            return new OkObjectResult(responseMessage);
+}
+
+        public static string TransformXML(string xml, string xsl, bool Text = false)
+        {
+            StringReader sr_xml;
+            StringReader sr_xsl;
+            sr_xml = new StringReader(xml);
+            sr_xsl = new StringReader(xsl);
+            XslCompiledTransform trans = new XslCompiledTransform();
+
+            XmlReaderSettings readerSettings = new XmlReaderSettings();
+
+            readerSettings.DtdProcessing = DtdProcessing.Ignore;
+
+            XmlReader xml_reader = XmlReader.Create(sr_xml, readerSettings);
+            XmlReader xsl_reader = XmlReader.Create(sr_xsl, readerSettings);
+            XsltSettings set = new XsltSettings();
+            set.EnableScript = true;
+            set.EnableDocumentFunction = true;
+            trans.Load(xsl_reader, set, new XmlUrlResolver());
+            StringWriter sw = new StringWriter();
+            XmlWriter xw = XmlWriter.Create(sw, trans.OutputSettings);
+            trans.Transform(xml_reader, xw);
+            return sw.ToString();
+        }
+
+
+```
+
+
+```json
+
+{
+  "bindings": [
+    {
+      "authLevel": "function",
+      "name": "req",
+      "type": "httpTrigger",
+      "direction": "in",
+      "methods": [
+        "get",
+        "post"
+      ]
+    },
+    {
+      "name": "myInputBlob",
+      "type": "blob",
+      "path": "xslt/CustomerOrder_to_InternalOrder.xslt",
+      "connection": "AzureWebJobsStorage",
+      "direction": "in"
+    },
+    {
+      "name": "$return",
+      "type": "http",
+      "direction": "out"
+    }
+  ]
+}
+
+```
