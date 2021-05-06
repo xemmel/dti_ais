@@ -473,3 +473,35 @@ public static async Task<IActionResult> Run(HttpRequest req, ILogger log, string
 }
 
 ```
+
+
+
+### XSLT file
+
+Storage: create container named **xslt**
+
+CustomerOrder_to_InternalOrder.xslt
+
+
+```xml
+
+<xsl:stylesheet version="1.0"
+xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:source="http://dti.dk" exclude-result-prefixes="source" xmlns:target="http://internal">
+
+<xsl:template match="source:Order">
+   <target:CompanyOrder>
+<OrderId>
+<xsl:value-of select="source:Id" />
+</OrderId>
+<ItemNo>
+<xsl:value-of select="source:Item" />
+</ItemNo>
+<Quantity>
+<xsl:value-of select="source:Qty" />
+</Quantity>
+</target:CompanyOrder>
+</xsl:template>
+
+</xsl:stylesheet>
+
+```
