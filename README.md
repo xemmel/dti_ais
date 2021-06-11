@@ -26,6 +26,19 @@
 
 ## Prequisites
 
+### NUGET
+C:\Users\Admin\AppData\Roaming\NuGet
+NuGet.Config
+```xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+ <packageSources>
+   <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
+ </packageSources>
+</configuration>
+
+```
 ### Wifi
 
 ```
