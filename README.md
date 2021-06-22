@@ -16,7 +16,7 @@
 10. [Data Factory](#data-factory)
 11. [Pricing](#pricing)
 12. [Final Project](#final-project)
-13. [Kubernetes(#kubernetes)
+13. [Kubernetes](#kubernetes)
 
 
 
