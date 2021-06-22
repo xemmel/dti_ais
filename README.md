@@ -16,6 +16,7 @@
 10. [Data Factory](#data-factory)
 11. [Pricing](#pricing)
 12. [Final Project](#final-project)
+13. [Kubernetes(#kubernetes)
 
 
 
@@ -530,3 +531,71 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:source="http://dti.dk" ex
 
 
 [Back to top](#table-of-content)
+
+
+## Kubernetes
+
+
+```yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sqlserver-deployment
+spec:
+  selector:
+    matchLabels:
+      app: sqlserver
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: sqlserver
+    spec:
+      containers:
+      - name: sqlserver
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 1433
+        env:
+        - name: MSSQL_PID
+          value: "Express"
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: SA_PASSWORD
+          value: "Hyllew001"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sqlserver-front
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8821
+    targetPort: 1433
+  selector:
+    app: sqlserver
+
+```
+
+```
+
+kubectl apply -f .\kuber_real_website.yaml
+
+kubectl delete -f .\kuber_real_website.yaml
+
+kubectl get all
+
+kubectl config get-contexts
+kubectl config use-context docker-desktop
+
+## Connect to Azure Kuber
+
+az aks get-credentials --resource-group kube2204 --name kube220401
+
+```
+
+[Back to top](#table-of-content)
+
