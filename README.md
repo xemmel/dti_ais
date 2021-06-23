@@ -17,7 +17,7 @@
 11. [Pricing](#pricing)
 12. [Final Project](#final-project)
 13. [Kubernetes](#kubernetes)
-
+14. [KeyVault Reference](#keyvault-reference)
 
 
 
@@ -599,3 +599,81 @@ az aks get-credentials --resource-group kube2204 --name kube220401
 
 [Back to top](#table-of-content)
 
+## KeyVault Reference
+
+```powershell
+
+## KEY VAULT REFERENCE IN FUNCTION APP
+
+$rgName = "vault20402";
+
+az group create -n $rgName -l westeurope;
+
+az monitor log-analytics workspace create -g $rgName -n "loga-$rgName";
+
+ $logaId = az monitor log-analytics workspace show -g $rgName -n "loga-$rgName" | ConvertFrom-Json | Select-Object -ExpandProperty id
+ 
+ az monitor app-insights component create -a "app-$rgName" -l westeurope -g $rgName --workspace $logaId;
+ 
+ az storage account create -g $rgName -n "store$($rgName)";
+ 
+ az keyvault create -l westeurope -n "kv-$rgName" -g $rgName --no-wait
+ az keyvault create -l westeurope -n "kv-vault20401" -g $rgName
+
+ 
+az functionapp create -g $rgName --consumption-plan-location westeurope `
+    --runtime dotnet-isolated --runtime-version 5.0 --functions-version 3 `
+         --name "funcapp-$rgName" --storage-account "store$($rgName)" `
+         --app-insights "app-$rgName"
+		 
+		 az functionapp create -g $rgName --consumption-plan-location westeurope `
+    --runtime dotnet --runtime-version 3.1 --functions-version 3 `
+         --name "funcapp-$rgName" --storage-account "store$($rgName)" `
+         --app-insights "app-$rgName" --no-wait
+		 
+## No identity
+
+az functionapp identity show -g $rgName -n "funcapp-$rgName"
+
+az functionapp identity assign -g $rgName -n "funcapp-$rgName"
+
+$principalId = az functionapp identity show -g $rgName -n "funcapp-$rgName" | ConvertFrom-Json | Select-Object -ExpandProperty principalId
+
+
+## Add Secret
+
+az keyvault secret set --name "vaultsecret" --vault-name "kv1-$rgName"  --value "Private Secret2"
+
+
+Add Security Policty to Vault
+
+az keyvault set-policy -n "kv1-$rgName" --secret-permissions get --object-id $principalId
+
+$appSetting = "mortensecret=@Microsoft.KeyVault(SecretUri=https://kv1-$rgName.vault.azure.net/secrets/MortenSecret/)";
+az functionapp config appsettings set -g $rgName -n "funcapp-$rgName" --settings "'" + $appSetting + "'"
+
+
+az functionapp config appsettings set -g $rgName -n "funcapp-$rgName" --settings '"
+
+mortensecret=@Microsoft.KeyVault(SecretUri=https://kv1-vault20401.vault.azure.net/secrets/mortensecret)"'
+
+#r "Newtonsoft.Json"
+
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
+
+public static async Task<IActionResult> Run(HttpRequest req, ILogger log)
+{
+            string responseMessage = System.Environment.GetEnvironmentVariable("mortensecret");
+            return new OkObjectResult(responseMessage);
+}
+
+
+
+az group delete -n $rgName --yes --no-wait
+
+```
+
+[Back to top](#table-of-content)
