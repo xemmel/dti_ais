@@ -22,6 +22,10 @@
 
 
 
+## Exam study
+
+https://docs.microsoft.com/en-us/azure/api-management/api-management-access-restriction-policies#ValidateJWT
+
 
 
 
