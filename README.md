@@ -23,6 +23,19 @@
 
 URl: http://postnumbers.westeurope.azurecontainer.io/Service.asmx
 
+payload
+
+```xml
+
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+	<Body>
+		<GetCity xmlns="http://tempuri.org/">
+    		<postnumber>8000</postnumber>
+    	</GetCity>
+	</Body>
+</Envelope>
+
+```
 
 ## Exam study
 
