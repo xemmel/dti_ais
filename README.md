@@ -289,6 +289,20 @@ New-AzResourceGroupDeployment -ResourceGroupName [resourceGroupName] -TemplateFi
 
 ## Api Management
 
+### Sequence
+
+```
+outbound Operation before base,
+Outbound Api before base,
+Outbound Product before base,
+Outbound Service before base,
+Outbound Service after base,
+Outbound Product after base,
+Outbound Api after base,
+outbound Operation after base
+
+```
+
 http://lacourpostnumber.westeurope.azurecontainer.io/Service.asmx
 
 ```xml
