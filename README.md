@@ -72,6 +72,21 @@ TEKNOLOGISK-GUEST
 ```
 Student Pass Code	Validity Date
 
+
+ 
+
+Voucher Code
+
+Q6R35UDZPWCIIO60TB
+
+QBRGPJ3P12MO1U082C
+
+QYYGS7REQ4D386XHNQ
+
+QELUTUGYLW1SO6PV0M
+
+
+
 ``` 
 
 ### Install Chocolatey
