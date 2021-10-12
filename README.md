@@ -246,6 +246,77 @@ this is @{logic app language} bla bla -> Code only inside {}
 ## Deployment
 
 
+### Storage Account Deployment
+
+
+```powershell
+
+Clear-Host;
+$rgName = "dtiarm";
+
+New-AzResourceGroup -Name $rgName -Location "westeurope";
+
+New-AzResourceGroupDeployment -ResourceGroupName $rgName `
+    -Mode Incremental -TemplateFile .\create_storage_account.json `
+    -TemplateParameterFile .\parameter2.json;
+
+
+
+
+
+```
+
+
+> template
+
+```json
+
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageName": { "type": "string", "maxLength": 24 },
+        "sku" : { "type" : "string", "defaultValue": "Standard_LRS"},
+        "location" : { "type" : "string", "defaultValue": "[resourceGroup().location]"}
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2021-04-01",
+            "name": "[parameters('storageName')]",
+            "location": "westeurope",
+            "sku": {
+                "name": "[parameters('sku')]",
+                "tier": "Standard"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "accessTier": "Hot"
+            }
+        }
+    ]
+}
+
+```
+
+
+> Parameters
+
+```json
+
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "storageName": {
+        "value": "dtifirststorage"
+      }
+    }
+  }
+```
+[Back to top](#table-of-content)
+
 
 ```json
 {
