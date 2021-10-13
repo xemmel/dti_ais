@@ -432,22 +432,138 @@ http://lacourpostnumber.westeurope.azurecontainer.io/Service.asmx
 ```json
 
 [
-    { 
-        "id" : "1234",
-        "subject" : "fileEvents",
-        "eventType" : "fileCreated",
-        "eventTime" : "2010-01-01",
-        "data" : {
-            "receiverId" : "DS",
-            "customerId" : "3344",
-            "correlationId" : "4343-434343-43-4343"
-        }
-     }
+    {
+    "id" : "123456",
+    "subject" : "morten.txt",
+    "eventType" : "FileCreated",
+    "eventTime" : "2021-10-13",
+    "data" : {
+        "orderSize" : 18,
+        "orderId" : "127",
+        "customer" : "AVK"
+    }
+},
+    {
+    "id" : "123456",
+    "subject" : "morten.txt",
+    "eventType" : "FileCreated",
+    "eventTime" : "2021-10-13",
+    "data" : {
+        "orderSize" : 180,
+        "orderId" : "127",
+        "customer" : "AVK"
+    }
+}
 ]
 
 ```
 
-- Create LA HTTP Trigger
+- Create Two Logic Apps
+(Code may need to have names and path's changed)
+
+```powershell
+
+Clear-Host;
+$rgName = "dtiais2021";
+
+# New-AzResourceGroup -Name $rgName -Location "westeurope";
+
+$result = New-AzResourceGroupDeployment -ResourceGroupName $rgName `
+    -Mode Incremental -TemplateFile .\eventgrid_logic_app.json `
+    -TemplateParameterFile .\Parameters\Test\eventgrid_logicapp_small_orders.json;
+
+
+# $result;
+
+
+
+```
+
+
+> Retrieve Logic App URL after deployment
+
+```powershell
+
+$result.Outputs["logicAppUrl"].Value
+$result.Outputs["logicAppUrl"].Value | Set-Clipboard 
+
+```
+
+> Parameters
+Create both small and large Logic App, so two param files will be needed
+
+```json
+
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "logicapp_name": {
+        "value": "Process_Large_Orders"
+      }
+    }
+  }
+
+```
+
+```json
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "logicapp_name": { "type": "string" }
+    },
+    "variables": {
+        "logicappVersion" : "2017-07-01"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "[variables('logicappVersion')]",
+            "name": "[parameters('logicapp_name')]",
+            "location": "westeurope",
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "triggers": {
+                        "manual": {
+                            "type": "Request",
+                            "splitOn" : "@triggerBody()",
+                            "kind": "Http",
+                            "inputs": {
+                                "schema": {},
+                                "method" : "POST"
+                            }
+                        }
+                    },
+                    "actions": {
+                        "Compose": {
+                            "runAfter": {},
+                            "type": "Compose",
+                            "inputs": "trtr"
+                        }
+                    },
+                    "outputs": {
+
+                     }
+                },
+                "parameters": {}
+            }
+        }
+    ],
+    "outputs": {
+        "logicAppUrl": {
+            "type": "string",
+            "value": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows/', parameters('logicapp_name')), '/triggers/manual'), '2017-07-01').value]"
+         }
+    }
+}
+
+```
+
 - Create subscription with LA endpoint url as webhook
 - (Experiment with filters on the subscriptions)
 
