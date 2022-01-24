@@ -80,7 +80,7 @@ Student Pass Code	Validity Date
 | John Tiab                | Q5ULUMVXPPS65GDV7X |
 | Morteza Yamini           | QTG8XK0IJ1EHLI8499 |
 
-[Microsoft Azure Pass Start](#https://www.microsoftazurepass.com)
+[Microsoft Azure Pass Start](https://www.microsoftazurepass.com)
 
 ### Install Chocolatey
 
