@@ -18,6 +18,7 @@
 12. [Final Project](#final-project)
 13. [Kubernetes](#kubernetes)
 14. [KeyVault Reference](#keyvault-reference)
+15. [Powershell commands](#powershell-commands)
 
 ## API Walkthrough
 
@@ -909,6 +910,17 @@ public static async Task<IActionResult> Run(HttpRequest req, ILogger log)
 
 
 az group delete -n $rgName --yes --no-wait
+
+```
+
+[Back to top](#table-of-content)
+
+## Powershell Commands
+
+```powershell
+
+$url = "https://prod-132.westeurope.logic.azure.com:443/workflows/0d2338d7a97d4ba2ae77e48f58066c38/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=XC_bl4p91RyrfWyuB8zfszYPWkqo8u_0jPPtkfy7x4U";
+Invoke-WebRequest $url -Method Post -body "{ ""location"" : ""copenhagen"" }" -Headers @{ "Content-Type" = "application/json" }
 
 ```
 
