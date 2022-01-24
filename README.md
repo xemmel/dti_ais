@@ -188,6 +188,11 @@ Select-AzContext [Tab for all available logins]
 
 ```
 
+### Register Nuget.org
+
+```powershell
+dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
+```
 
 [Back to top](#table-of-content)
 
