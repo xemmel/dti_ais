@@ -65,29 +65,22 @@ NuGet.Config
 
 ```
 TEKNOLOGISK-GUEST
-51648729
+94936269
 ```
 
 ### Azure Keys
-```
+
 Student Pass Code	Validity Date
 
 
- 
+| Student                  | Pass               | 
+|:------------------------:| ------------------:|
+| Hans-Henrik Basse        | QYMCXB57EWNVKV8BQS |
+| Henrik Bøgelund Sørensen | QC3Z4CCIJKBF9ZOLH3 |
+| John Tiab                | Q5ULUMVXPPS65GDV7X |
+| Morteza Yamini           | QTG8XK0IJ1EHLI8499 |
 
-Voucher Code
-
-Q6R35UDZPWCIIO60TB
-
-QBRGPJ3P12MO1U082C
-
-QYYGS7REQ4D386XHNQ
-
-QELUTUGYLW1SO6PV0M
-
-
-
-``` 
+[Microsoft Azure Pass Start](#https://www.microsoftazurepass.com)
 
 ### Install Chocolatey
 
