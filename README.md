@@ -79,6 +79,7 @@ Student Pass Code	Validity Date
 | Henrik Bøgelund Sørensen | QC3Z4CCIJKBF9ZOLH3 |
 | John Tiab                | Q5ULUMVXPPS65GDV7X |
 | Morteza Yamini           | QTG8XK0IJ1EHLI8499 |
+| Morten la Cour           | QCF99YDTJGDHLPGL00 |
 
 [Microsoft Azure Pass Start](https://www.microsoftazurepass.com)
 
