@@ -19,7 +19,7 @@
 13. [Kubernetes](#kubernetes)
 14. [KeyVault Reference](#keyvault-reference)
 15. [Powershell commands](#powershell-commands)
-
+16. [Links](#links)
 ## API Walkthrough
 
 URl: http://postnumbers.westeurope.azurecontainer.io/Service.asmx
@@ -925,3 +925,11 @@ Invoke-WebRequest $url -Method Post -body "{ ""location"" : ""copenhagen"" }" -H
 ```
 
 [Back to top](#table-of-content)
+
+## Links
+
+[Logic app Expressions](https://docs.microsoft.com/en-us/azure/logic-apps/workflow-definition-language-functions-reference)
+
+
+[Back to top](#table-of-content)
+
