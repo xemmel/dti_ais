@@ -315,6 +315,52 @@ az deployment group create --resource-group ais2022 --template-file .\storageAcc
 
 ``` 
 
+
+### Bicep
+
+
+#### Install bicep az
+
+```powershell
+az bicep install
+
+## Confirm install
+az bicep version
+
+
+```
+
+#### A simple sample
+
+```json
+
+targetScope = 'resourceGroup'
+
+param accountName string
+param location string = resourceGroup().location
+
+param skuName string = 'Standard_LRS'
+param kind string = 'StorageV2'
+
+resource account 'Microsoft.Storage/storageAccounts@2021-06-01' = {
+  name: accountName
+  location: location
+  sku: {
+    name: skuName
+  }
+  kind: kind
+}
+
+```
+
+#### Deploy
+
+```powershell
+
+az deployment group create --resource-group ais2022 --template-file .\storageAccount.bicep --parameters .\parameters\prod\storageAccount.json
+
+```` 
+
 [Back to top](#table-of-content)
 
 ### Storage Account Deployment
