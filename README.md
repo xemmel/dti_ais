@@ -245,6 +245,77 @@ this is @{logic app language} bla bla -> Code only inside {}
 
 ## Deployment
 
+### Cli Deployment
+
+```powershell
+
+## Login az
+az login --use-device-code
+
+
+
+### Deploy arm template with parameter file (change names and folder location if needed)
+
+az deployment group create --resource-group ais2022 --template-file .\storageAccount.json --parameters .\parameters\prod\storageAccount.json
+
+
+
+```
+
+#### Arm template
+
+```json
+
+{
+	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters" : {
+		"accountName" : { "type" : "string" },
+		"skuName" : { "type" : "string", "defaultValue" : "Standard_LRS"},
+		"skuTier" : { "type" : "string", "defaultValue" : "Standard"},
+		"kind" : 	{ "type": "string", "defaultValue" : "StorageV2" },
+		"location" : { "type" : "string", "defaultValue" : "[resourceGroup().location]"}
+	},
+	"resources": [
+		{
+			"type": "Microsoft.Storage/storageAccounts",
+			"apiVersion": "2021-06-01",
+			"name": "[parameters('accountName')]",
+			"location": "[parameters('location')]",
+			"sku": {
+                "name": "[parameters('skuName')]",
+                "tier": "[parameters('skuTier')]"
+            },
+			"kind": "[parameters('kind')]"
+		}
+	]
+}
+
+```
+
+#### parameter file
+
+```json
+
+{
+	"$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"accountName": {
+			"value": "mystooooragprod"
+		},
+		"skuName": {
+			"value": "Standard_GRS"
+		},
+		"skuTier": {
+			"value": "Standard"
+		}
+	}
+}
+
+``` 
+
+[Back to top](#table-of-content)
 
 ### Storage Account Deployment
 
