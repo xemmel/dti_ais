@@ -361,6 +361,129 @@ az deployment group create --resource-group ais2022 --template-file .\storageAcc
 
 ```` 
 
+#### Log Analytics and Logic App bicep samples
+
+
+> solution.bicep
+```
+targetScope = 'resourceGroup'
+
+param appName string
+param env string
+
+
+// Log Analytics
+var logAnalyticsName = 'log-${appName}-${env}'
+module logana 'LogAnalytics.bicep' = {
+  name: 'logana'
+  params: {
+    logAnalyticsName: logAnalyticsName
+  }
+}
+
+//Logic App
+var logicAppName = 'myloganalyticflow'
+
+module logicapp 'logicapp.bicep' = {
+  name: 'logicapp'
+  params: {
+    logicAppName: logicAppName
+    logAnalyticsId: logana.outputs.id
+  }
+}
+
+
+```
+
+> Log Analytics
+
+```
+
+targetScope = 'resourceGroup'
+
+param logAnalyticsName string
+param location string = resourceGroup().location
+
+
+
+
+resource loganalytics 'Microsoft.OperationalInsights/workspaces@2021-06-01' = {
+  name: logAnalyticsName
+  location: location
+}
+
+output id string = loganalytics.id
+output customerId string = loganalytics.properties.customerId
+
+
+
+```
+
+
+> Logic App
+
+```
+
+targetScope = 'resourceGroup'
+
+param logicAppName string
+param location string = resourceGroup().location
+
+param logAnalyticsId string
+
+resource logicapp 'Microsoft.Logic/workflows@2019-05-01' = {
+  name: logicAppName
+  location: location
+  properties: {
+    definition: {
+      '$schema' : 'https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#'
+      contentVersion: '1.0.0.0'
+      actions: {
+        GetRequest: {
+          inputs: '@triggerBody()'
+          type: 'Compose'
+          runAfter: {}
+        }
+      }
+      triggers: {
+        http: {
+          inputs: {
+            schema: {}
+          }
+          type: 'Request'
+          kind: 'Http'
+        }
+      }
+    }
+  }
+}
+
+
+//Logic App Diagnostic Settings
+resource diagnosticSettings 'Microsoft.Logic/workflows/providers/diagnosticSettings@2021-05-01-preview' = {
+  name: '${logicAppName}/Microsoft.Insights/diag'
+  dependsOn: [ 
+    logicapp 
+  ]
+  properties: {
+    workspaceId: logAnalyticsId
+    logs: [
+      {
+        category: 'WorkflowRuntime'
+        enabled: true
+      }
+    ]
+    metrics: [
+      {
+        category: 'AllMetrics'
+        enabled: true
+      }
+    ]
+  }
+}
+
+
+```
 [Back to top](#table-of-content)
 
 ### Storage Account Deployment
