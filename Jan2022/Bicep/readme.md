@@ -8,13 +8,13 @@ $rgName = 'whateveryouwant';
 az group create -n $rgName -l "westeurope";
 
 ## Deploy LogA AND a LogicApp
-az deployment group create --resource-group  `
+az deployment group create --resource-group $rgName `
 	--template-file solution.bicep `
 	--parameters appName=wednesday --parameters env=stage
 
 ## Deploy a lonely Logic App and connect to an existing LogA
 
-az deployment group create --resource-group rg-donaldduck `
+az deployment group create --resource-group $rgName `
 --template-file logicapp_with_existing_loganalytics.bicep `
 --parameters logicAppName=anotherlogicapp `
 --parameters logAnalyticsName=log-wednesday-stage
