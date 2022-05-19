@@ -12,14 +12,15 @@
 6. [Event Grid](#event-grid)
 7. [API Management](#api-management)
 8. [Deployment](#deployment)
-9. [Security](#security)
-10. [Data Factory](#data-factory)
-11. [Pricing](#pricing)
-12. [Final Project](#final-project)
-13. [Kubernetes](#kubernetes)
-14. [KeyVault Reference](#keyvault-reference)
-15. [Powershell commands](#powershell-commands)
-16. [Links](#links)
+9. [Deployment2](#deployment-2)
+10. [Security](#security)
+11. [Data Factory](#data-factory)
+12. [Pricing](#pricing)
+13. [Final Project](#final-project)
+14. [Kubernetes](#kubernetes)
+15. [KeyVault Reference](#keyvault-reference)
+16. [Powershell commands](#powershell-commands)
+17. [Links](#links)
 ## API Walkthrough
 
 URl: http://postnumbers.westeurope.azurecontainer.io/Service.asmx
@@ -198,6 +199,54 @@ dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
 
 [Back to top](#table-of-content)
 
+## Deployment 2
+
+```json
+
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageName" : { "type" : "string" },
+        "location" : {"type" : "string","defaultValue": "[resourceGroup().location]" },
+        "sku" : { "type" : "string", "defaultValue": "Standard_GRS" }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2021-09-01",
+            "name": "[parameters('storageName')]",
+            "location": "[parameters('location')]",
+            "sku": {
+                "name": "[parameters('sku')]"
+            },
+            "kind": "StorageV2"
+        }
+    ]
+}
+
+```
+
+```json
+
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageName" : { "value": "thestupidstoragetest" },
+        "sku" : { "value" : "Standard_LRS" }
+    }
+}
+
+```
+
+
+```powershell 
+az deployment group create --resource-group $rgName --template-file .\Templates\storageAccount.json --parameters .\Parameters\Prod\storageAccount.json
+```
+
+[Back to top](#table-of-content)
 
 ## Logic Apps
 
