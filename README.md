@@ -110,7 +110,7 @@ choco install powershell-core -y
 
 choco install az.powershell -y
 choco install azure-cli -y
-choco install azure-functions-core-tools-3 -y
+choco install azure-functions-core-tools -y
 choco install vscode -y
 choco install postman -y
 choco install notepadplusplus -y
