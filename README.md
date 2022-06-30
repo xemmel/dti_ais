@@ -1,7 +1,7 @@
 # AIS COURSE
 ## Morten la Cour
 ### lacour@gmail.com
-
+### mlc@integration-it.com
 
 ## Table of Content
 1. [Prequisites](#prequisites)
