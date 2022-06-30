@@ -22,6 +22,8 @@
 16. [Powershell commands](#powershell-commands)
 17. [Links](#links)
 18. [Kusto](#kusto)
+19. [Redis](#redis)
+
 ## API Walkthrough
 
 URl: http://postnumbers.westeurope.azurecontainer.io/Service.asmx
@@ -1284,5 +1286,45 @@ AppRequests
 
 [Back to top](#table-of-content)
 
+
+
+## Redis
+
+```powershell
+
+dotnet add package StackExchange.Redis
+
+```
+
+```csharp
+
+// See https://aka.ms/new-console-template for more information
+using StackExchange.Redis;
+
+Console.WriteLine("Hello, World!");
+
+string connectionString = "tekno.redis.cache.windows.net:6380,password=........=,ssl=True,abortConnect=False";
+
+using var cache = ConnectionMultiplexer.Connect(connectionString);
+IDatabase db = cache.GetDatabase();
+
+//Ping pong
+var result = await db.ExecuteAsync("ping");
+
+System.Console.WriteLine(result);
+
+//Cache the value
+string value = "secret!!";
+
+await db.StringSetAsync("thetype:id",value);
+
+//Retrieve the value
+var thefinalResult = await db.StringGetAsync("thetype:id");
+
+System.Console.WriteLine($"The cached value was: {thefinalResult}");
+
+```
+
+[Back to top](#table-of-content)
 
 
