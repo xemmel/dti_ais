@@ -117,6 +117,8 @@ choco install azure-functions-core-tools -y
 choco install vscode -y
 choco install postman -y
 choco install notepadplusplus -y
+choco install git -y
+choco install dotnet-sdk -y
 
 ```
 
