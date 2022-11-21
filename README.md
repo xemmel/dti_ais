@@ -23,6 +23,7 @@
 17. [Links](#links)
 18. [Kusto](#kusto)
 19. [Redis](#redis)
+20. [Devops](#devops)
 
 ## API Walkthrough
 
@@ -1329,4 +1330,32 @@ System.Console.WriteLine($"The cached value was: {thefinalResult}");
 
 [Back to top](#table-of-content)
 
+## Devops
+
+```yaml
+
+trigger:
+- master
+
+variables:
+  sub: 'testsubscription'  
+
+pool:
+  vmImage: ubuntu-latest
+
+
+steps:
+- task: AzureCLI@2
+  displayName: Azure CLI
+  inputs:
+    azureSubscription: 'intitsubscription'
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      az group create -n rg-thedevopsgroup -l westeurope
+
+```
+
+
+[Back to top](#table-of-content)
 
