@@ -1,0 +1,29 @@
+trigger:
+- master
+
+variables:
+  sub: 'testsubscription'
+  buildConfiguration: 'Release'
+  codePath: './thecoolwebapi/thecoolwebapi.csproj'
+  appName: 'teknologisk01'
+
+pool:
+  vmImage: windows-latest
+
+
+steps:
+- script: dotnet build $(codePath) --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    projects: '$(codePath)'
+    publishWebProjects: true
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'mortensconnection'
+    appType: 'webAppWindows'
+    appName: $(appName)
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+      
+
