@@ -1,4 +1,11 @@
- - task: AzureCLI@2
+- task: AzureCLI@2
+  displayName: Create Resource Group
+  inputs:
+    azureSubscription: 'mortensconnection'
+    scriptLocation: inlineScript
+    scriptType: pscore
+    inlineScript: az group create -n $(resourceGroupName) --location $(location)
+- task: AzureCLI@2
       displayName: Create Storage Account
       inputs:
         azureSubscription: 'mortensconnection'
