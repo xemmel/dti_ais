@@ -1,0 +1,40 @@
+ {
+    "clientId": "08004596-9466-4abd-b2b0-e93062914589",
+    "clientSecret": "....",
+    "subscriptionId": "4bf83030-fffb-4e17-8ec3-faacdf8634e5",
+    "tenantId": "551c586d-a82d-4526-b186-d061ceaa589e"
+  }
+
+  secrets i github
+
+  
+
+
+
+.github/workflows
+
+name: ciaction
+
+on:
+  push:
+    branches:
+      - main
+env:
+  rgName: 'rg-github-demo'
+  location: 'westeurope'
+jobs:
+  my-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: my-step
+        run: echo "Hello World!"
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Azure CLI script
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.30.0
+          inlineScript: |
+            az group create --name $rgName --location $location
