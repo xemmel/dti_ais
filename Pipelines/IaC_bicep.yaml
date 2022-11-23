@@ -1,0 +1,7 @@
+ - task: AzureCLI@2
+      displayName: Create Storage Account
+      inputs:
+        azureSubscription: 'mortensconnection'
+        scriptType: pscore
+        scriptLocation: inlineScript
+        inlineScript: az deployment group create --resource-group $(resourceGroupName) --template-file $(infrastructurePath) --parameters $(infrastructureParamPath)
