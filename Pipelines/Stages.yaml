@@ -1,0 +1,29 @@
+trigger:
+    - master
+    - prod
+variables:
+  isprod: $[eq(variables['Build.SourceBranch'], 'refs/heads/prod')]
+pool:
+  vmImage: ubuntu-latest
+stages:
+- stage: Test
+  variables:
+    env: test
+  jobs:
+  - job: Job1
+    steps:
+    - script: echo $(env)
+      displayName: Logging env
+- stage: Prod
+  dependsOn: Test
+  condition: and(succeeded(), eq(variables.isprod, 'true'))
+  variables:
+    env: prod
+  jobs:
+  - job: Job1
+    steps:
+    - script: echo $(env)
+      displayName: Logging env
+       
+    
+        
