@@ -1332,6 +1332,15 @@ System.Console.WriteLine($"The cached value was: {thefinalResult}");
 
 ## Devops
 
+
+### CLI List Pipeline runs
+
+```powershell
+
+az pipelines runs list --org https://dev.azure.com/integration-it --project the400temp -o jsonc --query "[].{time:finishTime,id:id,reason:reason,user:requestedFor.displayName}"
+
+```
+
 ```yaml
 
 trigger:
