@@ -24,6 +24,7 @@
 18. [Kusto](#kusto)
 19. [Redis](#redis)
 20. [Devops](#devops)
+21. [Web App](#web-app)
 
 ## API Walkthrough
 
@@ -1365,6 +1366,69 @@ steps:
 
 ```
 
+
+[Back to top](#table-of-content)
+
+## Web App
+
+1. Create a WebApp
+```powershell
+
+choco install dotnet-6.0-sdk -y
+
+
+dotnet dev-certs https -t
+
+dotnet new webapp -o [thename]
+
+
+cd 
+
+dotnet run
+
+Get the https url
+
+
+```
+1. Create App Registration in *AAD*
+Redirect Url -> URL/signin-oidc
+
+Save
+
+Authentication (in App Reg) -> Implicit -> ID Tokens
+
+
+
+Visual Studio Code (App)
+
+In appsettings
+
+,  "AzureAd": {
+    "Instance": "https://login.microsoftonline.com/",
+    "TenantId": "...",
+    "ClientId": "...",
+    "CallbackPath": "/signin-oidc"
+  }
+
+Program.cs
+
+```csharp
+
+builder.Services.AddRazorPages();
+
+builder
+    .Services
+    .AddMicrosoftIdentityWebAppAuthentication(builder.Configuration);
+
+builder.Services.AddAuthorization(options =>
+{
+    // By default, all incoming requests will be authorized according to the default policy.
+    options.FallbackPolicy = options.DefaultPolicy;
+});
+
+```
+
+dotnet run -> Login (Existing browser NOT PROMPTED!!) -> Incagnito
 
 [Back to top](#table-of-content)
 
