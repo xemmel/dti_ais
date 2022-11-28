@@ -7,6 +7,9 @@ pool:
 variables:
   rgName: rg-204-pipelines
   location: westeurope
+  templateFilePath: ./Templates/infrastructure.bicep
+  appName: thepipelineapp
+  env: test
 
 steps:
 - script: echo 'Hello there!!!!!!'
@@ -17,3 +20,10 @@ steps:
     scriptType: pscore
     scriptLocation: inlineScript
     inlineScript: az group create --name $(rgName) --location $(location)
+- task: AzureCLI@2
+  displayName: Create Infrastructure
+  inputs:
+    azureSubscription: 'thenotstupedconnection'
+    scriptType: pscore
+    scriptLocation: inlineScript
+    inlineScript: az deployment group create --resource-group $(rgName) --template-file $(templateFilePath) --parameters appName=$(appName) --parameters env=$(env)
