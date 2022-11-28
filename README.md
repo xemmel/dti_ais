@@ -1379,7 +1379,7 @@ choco install dotnet-6.0-sdk -y
 
 dotnet dev-certs https -t
 
-dotnet new webapp -o [thename]
+dotnet new webapp -o [thename] --framework net6.0
 
 
 cd 
