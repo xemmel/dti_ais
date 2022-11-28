@@ -1,0 +1,19 @@
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  rgName: rg-204-pipelines
+  location: westeurope
+
+steps:
+- script: echo 'Hello there!!!!!!'
+- task: AzureCLI@2
+  displayName: Create Resource Group
+  inputs:
+    azureSubscription: 'thenotstupedconnection'
+    scriptType: pscore
+    scriptLocation: inlineScript
+    inlineScript: az group create --name $(rgName) --location $(location)
