@@ -1231,6 +1231,32 @@ Invoke-WebRequest $url -Method Post -body "{ ""location"" : ""copenhagen"" }" -H
 
 ## Kusto
 
+### Setup Function
+
+```csharp
+
+#r "Newtonsoft.Json"
+
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
+
+public static async Task<IActionResult> Run(HttpRequest req, ILogger log)
+{
+    log.LogInformation("C# HTTP trigger function processed a request.");
+
+    string numberString = req.Query["number"];
+log.LogInformation("the number was: {number}",numberString);
+//log.LogInformation($"the number was: {numberString}");
+    int number = int.Parse(numberString);
+    
+
+            return new OkObjectResult($"The number {number} squared is {number * number}");
+}
+
+```
+
 ### All Requests
 
 ```
