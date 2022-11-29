@@ -898,6 +898,103 @@ Create both small and large Logic App, so two param files will be needed
 
 ```
 
+
+
+#### Call Old SOAP Service
+
+Url: https://postnumbers.azurewebsites.net/Service.asmx
+Method: Post
+Headers:
+
+```
+SOAPAction: 	http://tempuri.org/GetCity
+Content-Type: 	text/xml
+```
+Body: 
+
+```xml
+
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+	<Body>
+		<GetCity xmlns="http://tempuri.org/">
+    		<postnumber>8200</postnumber>
+    	</GetCity>
+	</Body>
+</Envelope>
+
+```
+
+1. Create a blank API, with the *Web Service Url*
+2. Add an *operation* (GetCity) GET -> /city/{postnumber}
+3. Call the API operation https://aller.azure-api.net/postnumbers/city/{postnumber}
+> PostNumber = 5000
+> You will get a 401 Access Denied
+
+Ocp-Apim-Subscription-Key: 529a799a71254c23aa66e54fecc68ec5;product=starter
+
+> 500 Internal Error
+> Trace will tell that *http://xemmel.com/webservices/postnumber.asmx/city/5000* was called
+
+4. Set the following *policies* on operation level
+
+```xml
+
+ <inbound>
+        <base />
+        <rewrite-uri template="?op=GetCity" copy-unmatched-params="false" />
+        <set-method>POST</set-method>
+        <set-header name="Content-Type" exists-action="override">
+            <value>text/xml</value>
+        </set-header>
+        <set-body template="liquid">
+			<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+				<Body>
+					<GetCity xmlns="http://tempuri.org/">
+						<pPostNumber>4000</pPostNumber>
+					</GetCity>
+				</Body>
+			</Envelope>
+		</set-body>
+</inbound>
+
+```
+
+
+5. Read the *Template Parameter* instead of the hard-coded value
+
+```xml
+<pPostNumber>{{context.Request.MatchedParameters["postnumber"]}}</pPostNumber>
+```
+
+6. Change outbound policies*
+
+```xml
+
+ <outbound>
+        <base />
+        <xsl-transform>
+			<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:source="http://tempuri.org/" exclude-result-prefixes="source">
+				<xsl:output method="xml" indent="yes" omit-xml-declaration="yes" />
+				<xsl:template match="/">
+					<Response>
+						<xsl:value-of select="//source:GetCityResult" />
+					</Response>
+				</xsl:template>
+			</xsl:stylesheet>
+		</xsl-transform>
+        <xml-to-json kind="javascript-friendly" apply="always" consider-accept-header="true" />
+    </outbound>
+
+```
+
+7. Alter xslt to prettify **JSON**
+
+```xml
+<Response value="{//source:GetCityResult}" />
+```
+
+[Back to Top](#table-of-content)
+
 [Back to top](#table-of-content)
 
 ## Pricing
