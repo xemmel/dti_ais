@@ -1498,6 +1498,11 @@ dotnet run
 Get the https url
 
 
+dotnet add package Microsoft.AspNetCore.Authentication.OpenIdConnect --version 6.0.12
+dotnet add package Microsoft.Identity.Web;
+dotnet add package Microsoft.Identity.Web.UI;
+
+
 ```
 1. Create App Registration in *AAD*
 Redirect Url -> URL/signin-oidc
@@ -1525,6 +1530,8 @@ In appsettings
 Program.cs
 
 ```csharp
+
+using Microsoft.Identity.Web;
 
 builder.Services.AddRazorPages();
 
