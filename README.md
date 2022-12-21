@@ -1512,6 +1512,8 @@ Visual Studio Code (App)
 
 In appsettings
 
+```json
+
 ,  "AzureAd": {
     "Instance": "https://login.microsoftonline.com/",
     "TenantId": "...",
@@ -1519,6 +1521,7 @@ In appsettings
     "CallbackPath": "/signin-oidc"
   }
 
+```
 Program.cs
 
 ```csharp
@@ -1534,6 +1537,14 @@ builder.Services.AddAuthorization(options =>
     // By default, all incoming requests will be authorized according to the default policy.
     options.FallbackPolicy = options.DefaultPolicy;
 });
+
+
+....
+
+
+app.UseAuthentication(); //Insert this
+app.UseAuthorization();
+
 
 ```
 
