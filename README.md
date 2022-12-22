@@ -1700,7 +1700,7 @@ builder.Services.AddApplicationInsightsTelemetry();
 
   "AllowedHosts": "*",
   "ApplicationInsights": {
-    "InstrumentationKey": "Copy connection string from Application Insights Resource Overview"
+    "InstrumentationKey": "...."
   }
 
 ```
