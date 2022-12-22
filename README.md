@@ -27,6 +27,7 @@
 21. [Web App](#web-app)
 22. [Web Api](#web-api)
 23. [Get Token](#get-token)
+24. [App Insight](#app-insight)
 
 ## API Walkthrough
 
@@ -1647,3 +1648,59 @@ Content-Type: application/x-www-form-urlencoded
 
 Body:
 grant_type=client_credentials&client_id=..&client_secret=..&scope=../.default
+
+[Back to top](#table-of-content)
+
+## App Insight
+
+```powershell
+
+$rgName = "rg-204-monitor";
+$appName =  "204monitor";
+$location = "westeurope";
+
+az group create --name $rgName --location $location;
+
+
+$workspaceJson = az monitor log-analytics workspace create `
+	--resource-group $rgName `
+	--workspace-name "log-$($appName)" `
+	--location $location;
+	
+$workspace = $workspaceJson | ConvertFrom-Json;
+$workspace.id;
+
+
+
+$appInsightJson = az monitor app-insights component create `
+	--app "appi-$($appName)" `
+	--location $location `
+	--resource-group $rgName `
+	--application-type web `
+	--kind web `
+	--workspace $workspace.id
+	;
+	
+$appInsight = $appInsightJson | ConvertFrom-Json;
+$appInsight.id;
+
+
+$appInsight.instrumentationKey | Set-Clipboard;
+
+```
+
+```powershell
+
+dotnet add package Microsoft.ApplicationInsights.AspNetCore;
+
+builder.Services.AddApplicationInsightsTelemetry();
+```
+
+```json
+
+  "AllowedHosts": "*",
+  "ApplicationInsights": {
+    "InstrumentationKey": "Copy connection string from Application Insights Resource Overview"
+  }
+
+```
