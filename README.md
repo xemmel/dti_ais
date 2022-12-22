@@ -674,36 +674,6 @@ New-AzResourceGroupDeployment -ResourceGroupName [resourceGroupName] -TemplateFi
 
 [Back to top](#table-of-content)
 
-## Api Management
-
-### Sequence
-
-```
-outbound Operation before base,
-Outbound Api before base,
-Outbound Product before base,
-Outbound Service before base,
-Outbound Service after base,
-Outbound Product after base,
-Outbound Api after base,
-outbound Operation after base
-
-```
-
-http://lacourpostnumber.westeurope.azurecontainer.io/Service.asmx
-
-```xml
-
-<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-  <soap:Body>
-    <GetCity xmlns="http://tempuri.org/">
-      <postnumber>9000</postnumber>
-    </GetCity>
-  </soap:Body>
-</soap:Envelope>
-
-```
-
 ## Event Grid
 
 - Create Event Grid Topic
@@ -852,7 +822,23 @@ Create both small and large Logic App, so two param files will be needed
 - (Experiment with filters on the subscriptions)
 
 [Back to top](#table-of-content)
+
 ## Api Management
+
+### Sequence
+
+```
+outbound Operation before base,
+Outbound Api before base,
+Outbound Product before base,
+Outbound Service before base,
+Outbound Service after base,
+Outbound Product after base,
+Outbound Api after base,
+outbound Operation after base
+
+```
+
 
 ### CORS
 
@@ -914,16 +900,16 @@ Body:
 
 1. Create a blank API, with the *Web Service Url*
 2. Add an *operation* (GetCity) GET -> /city/{postnumber}
-3. Call the API operation https://aller.azure-api.net/postnumbers/city/{postnumber}
+3. Call the API operation https://[name].azure-api.net/postnumbers/city/{postnumber}
 > PostNumber = 5000
 > You will get a 401 Access Denied
 
-Ocp-Apim-Subscription-Key: 529a799a71254c23aa66e54fecc68ec5;product=starter
+api-key: ...;
 
 > 500 Internal Error
-> Trace will tell that *http://xemmel.com/webservices/postnumber.asmx/city/5000* was called
+> Trace will tell that *https://postnumbers.azurewebsites.net/Service.asmx/city/5000* was called
 
-4. Set the following *policies* on operation level
+1. Set the following *policies* on operation level
 
 ```xml
 
@@ -936,11 +922,11 @@ Ocp-Apim-Subscription-Key: 529a799a71254c23aa66e54fecc68ec5;product=starter
         </set-header>
         <set-body template="liquid">
 			<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
-				<Body>
-					<GetCity xmlns="http://tempuri.org/">
-						<pPostNumber>4000</pPostNumber>
-					</GetCity>
-				</Body>
+        <Body>
+		      <GetCity xmlns="http://tempuri.org/">
+            <postnumber>8200</postnumber>
+    	    </GetCity>
+	      </Body>
 			</Envelope>
 		</set-body>
 </inbound>
@@ -954,7 +940,7 @@ Ocp-Apim-Subscription-Key: 529a799a71254c23aa66e54fecc68ec5;product=starter
 <pPostNumber>{{context.Request.MatchedParameters["postnumber"]}}</pPostNumber>
 ```
 
-6. Change outbound policies*
+6. Change outbound policies* NOT USED !!
 
 ```xml
 
@@ -975,7 +961,7 @@ Ocp-Apim-Subscription-Key: 529a799a71254c23aa66e54fecc68ec5;product=starter
 
 ```
 
-7. Alter xslt to prettify **JSON**
+7. Alter xslt to prettify **JSON** NOT USED!!
 
 ```xml
 <Response value="{//source:GetCityResult}" />
@@ -983,7 +969,6 @@ Ocp-Apim-Subscription-Key: 529a799a71254c23aa66e54fecc68ec5;product=starter
 
 [Back to Top](#table-of-content)
 
-[Back to top](#table-of-content)
 
 ## Pricing
 
