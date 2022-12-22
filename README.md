@@ -25,6 +25,8 @@
 19. [Redis](#redis)
 20. [Devops](#devops)
 21. [Web App](#web-app)
+22. [Web Api](#web-api)
+23. [Get Token](#get-token)
 
 ## API Walkthrough
 
@@ -1592,3 +1594,71 @@ Shared/_Layout.cshtml (line 28)
 
 [Back to top](#table-of-content)
 
+
+## Web Api
+
+### Create Project
+
+```powershell
+
+dotnet new webapi -o secureapi
+cd secureapi
+dotnet add package Microsoft.Identity.Web
+
+```
+
+### Add Code
+
+```csharp
+
+using Microsoft.Identity.Web;
+
+builder
+    .Services
+    .AddMicrosoftIdentityWebApiAuthentication(builder.Configuration);
+    
+  
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+
+//Controllers
+[ApiController]
+[Authorize]
+[Route("[controller]")]
+
+
+[HttpGet(Name = "GetWeatherForecast")]
+[Authorize(Roles = "writer")]
+
+
+```
+
+> appsettings.json
+
+Audience ONLY needed if not using MS' suggested value
+
+```json
+
+  "AllowedHosts": "*",
+  "AzureAd" : {
+    "ClientId" : "..",
+    "TenantId" : "..",
+    "Instance": "https://login.microsoftonline.com/",
+    "Audience" : ".."
+  }
+
+```
+### Test
+
+/weatherforecast
+
+## Get Token
+
+https://login.microsoftonline.com/{tenantId}/oauth2/v2.0/token
+
+Content-Type: application/x-www-form-urlencoded
+
+Body:
+grant_type=client_credentials&client_id=..&client_secret=..&scope=../.default
