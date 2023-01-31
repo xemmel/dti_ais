@@ -28,6 +28,7 @@
 22. [Web Api](#web-api)
 23. [Get Token](#get-token)
 24. [App Insight](#app-insight)
+25. [Virtual Machine](#virtual-machine)
 
 ## API Walkthrough
 
@@ -1702,5 +1703,37 @@ builder.Services.AddApplicationInsightsTelemetry();
   "ApplicationInsights": {
     "InstrumentationKey": "...."
   }
+
+```
+
+### Virtual Machine
+
+```powershell
+Clear-Host;
+
+
+$resource="https://management.azure.com/"
+
+
+## $clientId = "84a354c6-2249-43d8-90c6-55b3d5ccffe1";
+
+
+## User Managed Identity
+$url = "http://169.254.169.254/metadata/identity/oauth2/token?resource=$resource&client_id=25d78fe8-0e03-4998-af5e-0c33f0ec9139&api-version=2018-02-01";
+
+## System Managed Identity
+$url = "http://169.254.169.254/metadata/identity/oauth2/token?resource=$resource&api-version=2018-02-01";
+
+
+$response = $null;
+$response = Invoke-WebRequest -Method Get -Uri $url -Headers @{ "metadata" = "true" };
+$response;
+
+$token = $response.Content | ConvertFrom-Json | Select-Object -ExpandProperty access_token;
+$expires = $response.Content | ConvertFrom-Json | Select-Object -ExpandProperty expires_on;
+
+$token;
+$token | Set-Clipboard;
+$expires;
 
 ```
