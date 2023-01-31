@@ -1719,7 +1719,7 @@ $resource="https://management.azure.com/"
 
 
 ## User Managed Identity
-$url = "http://169.254.169.254/metadata/identity/oauth2/token?resource=$resource&client_id=25d78fe8-0e03-4998-af5e-0c33f0ec9139&api-version=2018-02-01";
+$url = "http://169.254.169.254/metadata/identity/oauth2/token?resource=$resource&client_id=$clientId&api-version=2018-02-01";
 
 ## System Managed Identity
 $url = "http://169.254.169.254/metadata/identity/oauth2/token?resource=$resource&api-version=2018-02-01";
@@ -1737,3 +1737,5 @@ $token | Set-Clipboard;
 $expires;
 
 ```
+
+[Back to top](#table-of-content)
