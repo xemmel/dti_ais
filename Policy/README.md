@@ -2,15 +2,25 @@
 
 #### Create Resource Group
 
+```powershell
+
 $rg = New-AzResourceGroup -Name "rg-policy-test" -Location westeurope
 
+```
+
 #### Get Policy Defintion
+
+```powershell
 
 $policy = Get-AzPolicyDefinition | 
 	Where-Object {$_.Properties.DisplayName -eq 'Allowed Locations'}
 ;
 
+```
+
 #### Assignment Policy to RG
+
+```powershell
 
 New-AzPolicyAssignment `
 	-Name "allowedonrg" `
@@ -20,7 +30,11 @@ New-AzPolicyAssignment `
 	-PolicyParameterObject @{"listOfAllowedLocations" = @("westeurope","northeurope")}
 ;
 
+```
+
 #### Check that you cannot create 
+
+```powershell
 
 az storage account create -g $rg.ResourceGroupName -n fdf34343439 -l eastus;
 
@@ -32,7 +46,12 @@ New-AzStorageAccount -ResourceGroupName $rg.ResourceGroupName `
 	-Location eastus
 ;
 
+```
 
 #### Remove RG
 
+```powershell
+
 $rg | Remove-AzResourceGroup -Force -AsJob;
+
+```
