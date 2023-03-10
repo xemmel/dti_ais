@@ -59,26 +59,19 @@ https://docs.microsoft.com/en-us/azure/azure-monitor/app/asp-net-core
 
 ## Prequisites
 
-### NUGET
-C:\Users\Admin\AppData\Roaming\NuGet
-NuGet.Config
-```xml
-
-<?xml version="1.0" encoding="utf-8"?>
-<configuration>
- <packageSources>
-   <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
- </packageSources>
-</configuration>
-
-```
 ### Wifi
 
 ```
 TEKNOLOGISK-GUEST
-94936269
+.....
 ```
 
+### Your user (substitute xx with number given by instructor)
+
+```
+studentaisxx@integration-it.com
+
+```
 
 ### Install Chocolatey
 
@@ -114,7 +107,7 @@ choco install dotnet-sdk -y
 
 ```
 
-### Update all
+### Update all (Not needed now)
 
 ```powershell
 ## Check, run in "old" powershell if powershell-core needs update
@@ -123,47 +116,6 @@ choco upgrade all --noop
 choco upgrade all -y
 ```
 
-### Install Powershell AZ
-
-```powershell
-choco install az.powershell -y
-
-```
-
-### Install Azure Cli
-
-```powershell
-
-choco install azure-cli -y
-
-```
-
-### Install Azure Functions CLI
-
-```powershell
-choco install azure-functions-core-tools-3 -y
-```
-
-### Install Visual Studio Code
-
-```powershell
-choco install vscode -y
-```
-
-
-### Install Postman
-
-```powershell
-choco install postman -y
-```
-
-### Install Nodepad++
-
-```powershell
-
-choco install notepadplusplus -y 
-
-```
 
 ### Service Bus Explorer
 
