@@ -240,6 +240,25 @@ this is @{logic app language} bla bla -> Code only inside {}
                 "type": "Response"
             }
 ```
+### Azure Functions
+
+```powershell
+### Set up nuget.org if not already set up
+dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
+
+### Create Isolated Function App
+func init myinprocessfunctions --worker-runtime dotnet --target-framework net7.0
+
+### Inside Function App folder open VS code
+code .
+
+### Create Http Trigger Function
+func new --name MyFirstHttpTrigger --template HttpTrigger
+
+### Run function app
+func start
+
+```
 
 ## Deployment
 
