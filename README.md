@@ -247,7 +247,7 @@ this is @{logic app language} bla bla -> Code only inside {}
 dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
 
 ### Create Isolated Function App
-func init myinprocessfunctions --worker-runtime dotnet --target-framework net7.0
+func init myisolatedfunctions --worker-runtime dotnetIsolated --target-framework net7.0
 
 ### Inside Function App folder open VS code
 code .
