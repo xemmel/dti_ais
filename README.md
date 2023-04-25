@@ -1438,18 +1438,21 @@ steps:
 
 [Back to top](#table-of-content)
 
+
 ## Web App
 
 1. Create a WebApp
 ```powershell
 
-choco install dotnet-6.0-sdk -y
+
 
 
 dotnet dev-certs https -t
 
 dotnet new webapp -o [thename] --framework net6.0
 
+properties->launchsettings.
+ line 15       "applicationUrl": "https://localhost:7019;http://localhost:5267",
 
 cd 
 
@@ -1458,7 +1461,7 @@ dotnet run
 Get the https url
 
 
-dotnet add package Microsoft.AspNetCore.Authentication.OpenIdConnect --version 6.0.12
+dotnet add package Microsoft.AspNetCore.Authentication.OpenIdConnect
 dotnet add package Microsoft.Identity.Web;
 dotnet add package Microsoft.Identity.Web.UI;
 
@@ -1518,7 +1521,7 @@ app.UseAuthorization();
 dotnet run -> Login (Existing browser NOT PROMPTED!!) -> Incagnito
 
 
-
+In Shared/
 _LoginPartial.cshtml
 
 ```razor
