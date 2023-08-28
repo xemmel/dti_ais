@@ -12,10 +12,16 @@ dotnet add package Azure.Identity
 
 dotnet add package Azure.Storage.Blobs
 
+### Open VS Code
+
+code .
+
 ```
 
 
 ```csharp
+
+using Azure.Storage.Blobs;
 
 var credentials = new Azure.Identity.DefaultAzureCredential();
 
