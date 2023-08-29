@@ -41,3 +41,22 @@ func start
     }
 
 ```
+
+
+### Output to Storage queue
+
+```csharp
+        [Function("thefirstqueuetrigger")]
+        [QueueOutput("invoice2", Connection = "externalStorageAccount")]
+        public string Run([QueueTrigger("invoices", Connection = "externalStorageAccount")] string myQueueItem)
+        {
+            _logger.LogInformation($"C# Queue trigger function processed: {myQueueItem}");
+           
+            string output = $"I have processed: {myQueueItem}";
+            return output;
+        }
+
+
+```
+
+[Queue Trigger Doc](#https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-queue?tabs=in-process%2Cextensionv5%2Cextensionv3&pivots=programming-language-csharp)
