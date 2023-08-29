@@ -19,3 +19,25 @@ func new --name MyFunction [--template HttpTrigger]
 
 func start
 ```
+
+
+### Create Storage Queue Trigger
+
+```csharp
+
+        [Function("thefirstqueuetrigger")]
+        public void Run([QueueTrigger("invoices", Connection = "externalStorageAccount")] string myQueueItem)
+        {
+            _logger.LogInformation($"C# Queue trigger function processed: {myQueueItem}");
+        }
+
+```
+
+> local.settings.json
+
+```json
+ "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+        "externalStorageAccount" : "......"
+    }
+
+```
