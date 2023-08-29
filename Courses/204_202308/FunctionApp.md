@@ -9,4 +9,8 @@ cd my....
 
 func new --name MyFunction [--template HttpTrigger]
 
+
+## Run function app
+
+func start
 ```
