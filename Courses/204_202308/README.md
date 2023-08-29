@@ -25,7 +25,7 @@ using Azure.Storage.Blobs;
 
 var credentials = new Azure.Identity.DefaultAzureCredential();
 
-string accountName = "...";
+string accountName = "[youraccountname]";
 
 
 
