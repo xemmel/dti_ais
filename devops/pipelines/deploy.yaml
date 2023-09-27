@@ -1,0 +1,35 @@
+parameters:
+  - name: EnvironmentPostFix
+    type: string
+  - name: ServiceConnection #this is needed as an parameters, can not refere fro variablegroup 
+    type: string
+  - name: AppName 
+    type: string
+  - name: Location
+    type: string
+ 
+stages:
+  - stage: ${{ parameters.EnvironmentPostFix }}Release
+    variables:
+     - name: resourceGroup
+       value: ${{ parameters.AppName }}-${{ parameters.EnvironmentPostFix }}-rg
+    displayName: Release to ${{ parameters.EnvironmentPostFix }} 
+    jobs:
+      - deployment: ${{ parameters.EnvironmentPostFix }} 
+        displayName: Release to ${{ parameters.EnvironmentPostFix }}
+        environment: ${{ parameters.EnvironmentPostFix }}
+        strategy: 
+          runOnce:
+            deploy:
+              steps:
+                #Log Analytics
+                - script: echo ${{ variables.resourceGroup }}
+                - task: AzureResourceManagerTemplateDeployment@3
+                  inputs:
+                    connectedServiceName: ${{ parameters.ServiceConnection }}
+                    location: ${{ parameters.Location }}
+                    resourceGroupName: ${{ variables.resourceGroup }}
+                    csmFile: '$(Pipeline.Workspace)/templates/infrastructure.bicep'
+                    overrideParameters: >
+                      -appName thesolardevops
+                      -environment ${{ parameters.EnvironmentPostFix }}

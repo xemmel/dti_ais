@@ -1,0 +1,52 @@
+trigger:
+- master
+
+
+pool:
+  vmImage: ubuntu-latest
+
+
+stages:
+  - stage: Build
+    jobs:
+      - job: Job_1
+        displayName: 'Build and publish artifact'
+        steps:
+        - checkout: self
+        - script: echo stupid
+
+        - task: CopyFiles@2
+          inputs:
+              SourceFolder: '$(Build.Repository.LocalPath)'
+              Contents: templates/*'
+              TargetFolder: '$(Build.Repository.LocalPath)/templates'
+        - task: PublishPipelineArtifact@1
+          inputs:
+            targetPath: '$(Build.Repository.LocalPath)/templates'
+            artifact: templates
+            publishLocation: 'pipeline'
+        ### Parameters
+        - task: CopyFiles@2
+          inputs:
+              SourceFolder: '$(Build.Repository.LocalPath)'
+              Contents: parameters/*'
+              TargetFolder: '$(Build.Repository.LocalPath)/parameters'
+        - task: PublishPipelineArtifact@1
+          inputs:
+            targetPath: '$(Build.Repository.LocalPath)/parameters'
+            artifact: parameters
+            publishLocation: 'pipeline'
+
+  - template: deploy.yaml
+    parameters:
+      EnvironmentPostFix: test
+      ServiceConnection: 'solartestsub'
+      AppName: 'thesolardevops'
+      Location: 'westeurope'
+
+  - template: deploy.yaml
+    parameters:
+      EnvironmentPostFix: prod
+      ServiceConnection: 'solartestsub'
+      AppName: 'thesolardevops'
+      Location: 'westeurope'
