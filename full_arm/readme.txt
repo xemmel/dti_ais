@@ -6,3 +6,5 @@ az deployment group create --resource-group $rgName --template-file .\Templates\
 
 
 git clone https://github.com/xemmel/dti_ais.git
+
+az resource list -g $rgName -o table
