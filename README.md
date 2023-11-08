@@ -1449,10 +1449,10 @@ steps:
 
 dotnet dev-certs https -t
 
-dotnet new webapp -o [thename] --framework net6.0
+dotnet new webapp -o [thename]
 
 properties->launchsettings.
- line 15       "applicationUrl": "https://localhost:7019;http://localhost:5267",
+ line 15       "applicationUrl": "https://localhost:xxxx;http://localhost:5267",
 
 cd 
 
@@ -1467,8 +1467,12 @@ dotnet add package Microsoft.Identity.Web.UI;
 
 
 ```
-1. Create App Registration in *AAD*
-Redirect Url -> URL/signin-oidc
+1. Create App Registration in *Entra*   (entra.microsoft.com)
+
+Under *Redirect URI (optional)*
+   - select a platform -> Web
+   - url: https://localhost:xxxx/signin-oidc
+
 
 Save
 
