@@ -4,7 +4,7 @@
 ### mlc@integration-it.com
 
 ## Table of Content
-1. [Prequisites](#prequisites)
+1. [Prerequisites](#prerequisites)
 2. [Logic Apps](#logic-apps)
 3. [Azure Functions](#azure-functions)
 4. [Service Bus](#service-bus)
@@ -57,7 +57,7 @@ https://docs.microsoft.com/en-us/azure/azure-monitor/app/asp-net-core
 
 
 
-## Prequisites
+## Prerequisites
 
 ### Wifi
 
