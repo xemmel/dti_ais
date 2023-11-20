@@ -10,11 +10,11 @@
 - Get the name set before. This is the API's *audience*
 - *Save*
 
+### Make yourself owner of the API App
+- Goto *Owners* (when standing inside the APP)
+- Click **+ Add Owners** and add yourself
+  
 
-### Add Scope
-
-- Add a scope (name and description must be set)
-- Get the scope name
 
 ### Create Web App Registration
 - Get *ClientId* and *TenantId* and *Secret*
@@ -80,3 +80,61 @@ $token | Set-Clipboard;
 
 
   
+  ## Web Api
+
+### Create Project
+
+```powershell
+
+dotnet new webapi -o secureapi
+cd secureapi
+dotnet add package Microsoft.Identity.Web
+
+```
+
+### Add Code
+
+```csharp
+
+using Microsoft.Identity.Web;
+
+builder
+    .Services
+    .AddMicrosoftIdentityWebApiAuthentication(builder.Configuration);
+    
+  
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+
+//Controllers
+[ApiController]
+[Authorize]
+[Route("[controller]")]
+
+
+[HttpGet(Name = "GetWeatherForecast")]
+[Authorize(Roles = "writer")]
+
+
+```
+
+> appsettings.json
+
+Audience ONLY needed if not using MS' suggested value
+
+```json
+
+  "AllowedHosts": "*",
+  "AzureAd" : {
+    "ClientId" : "..",
+    "TenantId" : "..",
+    "Instance": "https://login.microsoftonline.com/",
+    "Audience" : ".."
+  }
+
+```
+### Test
+
+/weatherforecast
