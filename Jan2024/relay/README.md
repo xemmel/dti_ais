@@ -26,6 +26,7 @@ vs code
 code .
 
 Copy Paste Program.cs -> Program.cs
+Create Copy/Paste RequestModel.cs into project (same level as Program.cs)
 
 Replace 4 ### 
 
