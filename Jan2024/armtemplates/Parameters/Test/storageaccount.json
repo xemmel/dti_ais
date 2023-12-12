@@ -3,6 +3,6 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "storageAccountName" : { "value": "thesolarstoragemlctest" },
-        "sku" : { "value": "Standard_GRS" }
+        "sku" : { "value": "Standard_LRS" }
     }
   }

@@ -16,3 +16,9 @@ $env = "Test";
 az deployment group create --resource-group $rgName --template-file .\Templates\storageaccount.json  --parameters .\Parameters\$env\storageaccount.json 
 
 (--what-if)
+
+
+
+### Bicep
+az deployment group create --resource-group $rgName --template-file .\BicepTemplates\storageAccount.bicep --parameters .\Parameters\Prod\storageAccount.bicepparam
+
