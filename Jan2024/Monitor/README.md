@@ -21,6 +21,14 @@ AppRequests
 | render piechart 
 
 
+AppRequests
+| where Name == 'Calculator'
+| summarize count() by bin(TimeGenerated,2m), tostring(Success)
+| render barchart
+
+
+
+
 AppTraces
 | where OperationId == '66d8abd1f688072ab98b475f6b1d5b4b'
 
