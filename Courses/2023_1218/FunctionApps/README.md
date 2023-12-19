@@ -4,6 +4,7 @@
   - [Storage Queue Trigger](#storage-queue-trigger)
   - [C# Function](#c-function)
   - [Queue Trigger Locally](#queue-trigger-locally)
+  - [output to queue storage](#output-to-queue-storage)
 
 
 ### First Http Trigger
@@ -131,5 +132,20 @@ func new -n MyQueueTrigger -t QueueTrigger
         "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
         "myexternalstorage" : "...."
     }
+
+```
+
+### output to queue storage
+
+```csharp
+
+  [Function(nameof(MyQueueTrigger))]
+        [QueueOutput("outputinvoices",Connection = "myexternalstorage")]
+        public async Task<string> RunAsync(
+            [QueueTrigger("invoices", Connection = "myexternalstorage")] QueueMessage message, CancellationToken cancellationToken)
+        {
+            _logger.LogInformation($"C# Queue trigger function processed: {message.MessageText}");
+            return $"This message has been processed: {message.MessageText}";
+        }
 
 ```
