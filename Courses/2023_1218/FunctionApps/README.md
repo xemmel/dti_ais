@@ -40,6 +40,8 @@ public static async Task<IActionResult> Run(HttpRequest req, ILogger log)
 
   - **Get function URL**
   - Test in *Postman*
+  - Try *function key** in header instead of *query string*
+    - x-functions-key: key
 
 
 [Back to top](#table-of-content)
