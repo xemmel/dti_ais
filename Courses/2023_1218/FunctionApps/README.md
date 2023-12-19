@@ -5,6 +5,7 @@
   - [C# Function](#c-function)
   - [Queue Trigger Locally](#queue-trigger-locally)
   - [output to queue storage](#output-to-queue-storage)
+  - [Publish CSharp to Function App](#publish-csharp-to-function-app)
 
 
 ### First Http Trigger
@@ -149,3 +150,23 @@ func new -n MyQueueTrigger -t QueueTrigger
         }
 
 ```
+
+[Back to top](#table-of-content)
+
+### Publish CSharp to Function App
+
+- Create Function App (.NET 8 / .NET 7)
+- Get name of your function app
+
+```powershell
+
+### Inside the folder with the .csproj 
+
+func azure functionapp publish [[your_function_app_name]]
+
+```
+
+- Get the HttpTrigger URL
+- Postman
+
+[Back to top](#table-of-content)
