@@ -1,6 +1,7 @@
 ## Table of Content
 - [Table of Content](#table-of-content)
   - [First Http Trigger](#first-http-trigger)
+  - [Storage Queue Trigger](#storage-queue-trigger)
 
 
 ### First Http Trigger
@@ -43,3 +44,30 @@ public static async Task<IActionResult> Run(HttpRequest req, ILogger log)
 
 [Back to top](#table-of-content)
 
+### Storage Queue Trigger
+
+- Create new external *storage account*
+- in the *storage account* create new queue
+- Copy the name of the **storage account** and the **queue**
+- in the *function app* create new function *Azure Queue Storage Trigger*
+- Scroll down
+- In *Queue Name* insert the queue name from before
+- Under *Storage account connection* click **New** choose your storage account
+- Click *Create*
+
+- Goto the newly created function under *Code + Test*
+- Change log to *Filesystem Logs*
+  
+- Back in the storage account go into the queue
+- Notice that you might not have access to the *data plane* and therefore gets an error **You do not have per...**
+  - Goto *Access Control (IAM)
+  - Click *+ ADD* -> *Add Role Assignment*
+  - Choose role *Storage Queue Data Message Sender*
+  - Alt: Enable *Storage account key access* on the *storage account overview*
+
+- Click: *+ Add message* and submit a message
+- Go back to the queue function and check *Filesystem logs* within a minute a message should appear and the message should be gone from the queue
+
+
+
+[Back to top](#table-of-content)
