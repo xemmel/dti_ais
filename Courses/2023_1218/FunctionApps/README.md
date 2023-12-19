@@ -2,6 +2,7 @@
 - [Table of Content](#table-of-content)
   - [First Http Trigger](#first-http-trigger)
   - [Storage Queue Trigger](#storage-queue-trigger)
+  - [C# Function](#c-function)
 
 
 ### First Http Trigger
@@ -43,7 +44,7 @@ public static async Task<IActionResult> Run(HttpRequest req, ILogger log)
   - Try *function key** in header instead of *query string*
     - x-functions-key: key
 
-
+ 
 [Back to top](#table-of-content)
 
 ### Storage Queue Trigger
@@ -69,6 +70,32 @@ public static async Task<IActionResult> Run(HttpRequest req, ILogger log)
 
 - Click: *+ Add message* and submit a message
 - Go back to the queue function and check *Filesystem logs* within a minute a message should appear and the message should be gone from the queue
+
+
+
+[Back to top](#table-of-content)
+
+
+### C# Function
+
+- Create new Function App (.csproj)
+
+```powershell
+
+func init dgifunctions --worker-runtime dotnet-isolated --target-framework net8.0
+
+cd dgifunctions
+
+func new -n MyHttpTrigger (-t HttpTrigger)
+
+### Open favorite editor
+
+func start
+
+
+```
+
+Postman -> URL
 
 
 
