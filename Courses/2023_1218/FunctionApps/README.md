@@ -3,6 +3,7 @@
   - [First Http Trigger](#first-http-trigger)
   - [Storage Queue Trigger](#storage-queue-trigger)
   - [C# Function](#c-function)
+  - [Queue Trigger Locally](#queue-trigger-locally)
 
 
 ### First Http Trigger
@@ -100,3 +101,35 @@ Postman -> URL
 
 
 [Back to top](#table-of-content)
+
+
+### Queue Trigger Locally
+
+```powershell
+
+func new -n MyQueueTrigger -t QueueTrigger
+
+```
+
+```csharp
+
+        public void Run(
+            [QueueTrigger("invoices", Connection = "myexternalstorage")] QueueMessage message)
+        {
+            _logger.LogInformation($"C# Queue trigger function processed: {message.MessageText}");
+        }
+
+```
+
+> local.settings.json
+
+
+```json
+
+    "Values": {
+        "AzureWebJobsStorage": "....",
+        "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+        "myexternalstorage" : "...."
+    }
+
+```
