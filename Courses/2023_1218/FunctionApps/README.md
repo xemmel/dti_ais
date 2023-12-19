@@ -1,4 +1,9 @@
------------------
+## Table of Content
+- [Table of Content](#table-of-content)
+  - [First Http Trigger](#first-http-trigger)
+
+
+### First Http Trigger
 
 Create new Function App
   - New Resource Group
@@ -34,3 +39,7 @@ public static async Task<IActionResult> Run(HttpRequest req, ILogger log)
 
   - **Get function URL**
   - Test in *Postman*
+
+
+[Back to top](#table-of-content)
+
