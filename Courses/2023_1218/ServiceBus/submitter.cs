@@ -23,7 +23,8 @@ var sender = client.CreateSender(queueOrTopicName: queueName);
 
 var message = new ServiceBusMessage("Hello from .net code");
 
-message.ApplicationProperties.Add("country",args[0]);
+//message.ApplicationProperties.Add("country",args[0]);
+
 
 await sender.SendMessageAsync(message);
 System.Console.WriteLine("Message sent...");
