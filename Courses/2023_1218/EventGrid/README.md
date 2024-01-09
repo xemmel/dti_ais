@@ -7,7 +7,7 @@ az login --use-device-code
 
 az account show
 
-az storage blob upload --container-name **upload2** --file **c:\temp\order.txt** *--account-name **dgidemo012024** --overwrite
+az storage blob upload --container-name **upload2** --file **c:\temp\order.txt** --account-name **dgidemo012024** --overwrite
 
 ```
 
