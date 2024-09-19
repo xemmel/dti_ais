@@ -92,3 +92,28 @@ cd .\Courses\20240916\Deployment\
 ```
 
 Use *Deploy to env. using Param files* try with both **Test** and **Prod**
+
+
+
+
+### Deploy monitoring (workspace, app insight)
+
+```powershell
+
+$rgName = "rg-ais-mlc-deploy-appx-test"
+
+az group create --name $rgName --location germanywestcentral
+
+
+
+
+
+```
+
+### remove resource groups 
+
+```powershell
+
+az group list -o json | ConvertFrom-Json | Out-GridView -PassThru | ForEach-Object {az group delete --name $_.name --yes --no-wait}
+
+```
