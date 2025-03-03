@@ -1139,7 +1139,7 @@ spec:
         - name: ACCEPT_EULA
           value: "Y"
         - name: SA_PASSWORD
-          value: "Hyllew001"
+          value: "12345"
 ---
 apiVersion: v1
 kind: Service
